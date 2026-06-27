@@ -151,7 +151,7 @@ RUN npm install --prefer-offline --no-audit && \
 # installs the deps reachable through the composite `[all]` extra
 # (handpicked set intended for the production image — excludes `[dev]`),
 # plus gateway messaging adapters that should work in the published image
-# without a first-boot lazy install.  We do NOT use `--all-extras`:
+# without a first-boot lazy install.  We do NOT use `--all-extras`
 # that would pull in `[rl]` (atroposlib + tinker + torch + wandb from
 # git), `[yc-bench]` (another git dep), and `[termux-all]` (Android
 # redundancy), none of which belong in the published container.
@@ -329,7 +329,6 @@ ENV HERMES_LAZY_INSTALL_TARGET=/opt/data/lazy-packages
 # every other consumer.
 ENV PATH="/opt/hermes/bin:/opt/hermes/.venv/bin:/opt/data/.local/bin:${PATH}"
 RUN mkdir -p /opt/data
-VOLUME [ "/opt/data" ]
 
 # s6-overlay's /init is PID 1. It sets up the supervision tree, runs
 # /etc/cont-init.d/* (our stage2 hook), starts s6-rc services
@@ -355,3 +354,4 @@ VOLUME [ "/opt/data" ]
 # like `--version` would be intercepted by /init's POSIX shell.
 ENTRYPOINT [ "/init", "/opt/hermes/docker/main-wrapper.sh" ]
 CMD [ ]
+
